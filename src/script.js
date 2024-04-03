@@ -1,5 +1,6 @@
 // Get All Products
 let container = document.getElementById("container");
+let categorySection = document.getElementById("categorySection");
 let card = document.getElementById("card");
 
 async function getProducts() {
@@ -10,10 +11,43 @@ async function getProducts() {
 	return products;
 }
 
+async function getCategory() {
+	const response = await fetch("https://api.escuelajs.co/api/v1/categories");
+	const category = await response.json();
+	return category;
+}
+
+async function getCategoryList() {
+	const categories = await getCategory();
+	categories.map(({ name }) => {
+		return name;
+	});
+}
+
+async function displayCategoryList() {
+	let categories = await getCategory();
+	let categoryList = categories.map(({ name }) => {
+		return name;
+	});
+
+	let categoryListSliced = categoryList.slice(0, 4);
+	categoryListSliced.forEach((category) => {
+		let a = createDiv(
+			"a",
+			"border-b-2",
+			"border-transparent",
+			"hover:border-black",
+			"cursor-pointer"
+		);
+		a.innerHTML = category;
+		categorySection.append(a);
+	});
+}
+
 async function displayProducts() {
 	const products = await getProducts();
 	products.forEach((product) => {
-		console.log(product);
+		// console.log(product);
 		let { id, title, price, description, images } = product;
 		let a = createDiv(
 			"a",
@@ -39,6 +73,7 @@ async function displayProducts() {
 }
 
 displayProducts();
+displayCategoryList();
 
 function createDiv(tag, ...classes) {
 	let div = document.createElement(tag);
