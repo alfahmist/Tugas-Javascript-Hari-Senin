@@ -11,5 +11,8 @@
     },
     "author": "",
     "license": "ISC",
-    "description": ""
+    "description": "",
+    "dependencies": {
+        "to-rupiah": "^1.0.5"
+    }
 }
