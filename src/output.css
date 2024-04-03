@@ -596,6 +596,26 @@ video {
   display: flex;
 }
 
+.h-20 {
+  height: 5rem;
+}
+
+.h-16 {
+  height: 4rem;
+}
+
+.h-12 {
+  height: 3rem;
+}
+
+.h-10 {
+  height: 2.5rem;
+}
+
+.h-8 {
+  height: 2rem;
+}
+
 .w-60 {
   width: 15rem;
 }
@@ -612,6 +632,10 @@ video {
   flex-wrap: wrap;
 }
 
+.items-center {
+  align-items: center;
+}
+
 .justify-center {
   justify-content: center;
 }
@@ -626,6 +650,10 @@ video {
 
 .gap-20 {
   gap: 5rem;
+}
+
+.self-center {
+  align-self: center;
 }
 
 .rounded {
