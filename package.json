@@ -1,0 +1,15 @@
+{
+    "devDependencies": {
+        "tailwindcss": "^3.4.3"
+    },
+    "name": "tugas-javacript",
+    "version": "1.0.0",
+    "main": "tailwind.config.js",
+    "scripts": {
+        "dev": "npx tailwindcss -i ./src/input.css -o ./src/output.css --watch",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "",
+    "license": "ISC",
+    "description": ""
+}
