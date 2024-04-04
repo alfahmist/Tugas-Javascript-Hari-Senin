@@ -112,7 +112,7 @@ async function displayCategoryList() {
 }
 
 displayCategoryList();
-displayProductsById();
+displayProductsById(defaultId);
 
 function createDiv(tag, ...classes) {
 	let div = document.createElement(tag);
