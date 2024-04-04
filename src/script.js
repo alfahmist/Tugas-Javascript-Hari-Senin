@@ -78,8 +78,9 @@ async function displayProductsByCategoryId(id, clicked) {
 		const h1 = createDiv("h1", "mb-4");
 		const p = createDiv("p", "font-bold");
 
-		// a.href = id;
-		img.src = "headphone.jpeg";
+		var imageClean = images[0].replace(/["[\]\]]/gi, "");
+		img.src = imageClean;
+		console.log(imageClean);
 		pCategory.innerHTML = `${name}`;
 		h1.innerHTML = title;
 		p.innerHTML = `$ ${price}`;
