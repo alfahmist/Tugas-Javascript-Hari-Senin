@@ -35,8 +35,19 @@ async function getProductsById(id) {
 }
 
 async function displayProductsById(id, clicked) {
-	let cards = document.getElementsByClassName("card");
+	if (clicked == true) {
+		container.firstChild.remove();
+	}
+	let containerProduct = createDiv(
+		"div",
+		"justify-center",
+		"flex",
+		"gap-2",
+		"flex-row",
+		"flex-wrap"
+	);
 
+	container.append(containerProduct);
 	const products = await getProductsById(id);
 
 	// console.log(products);
@@ -70,28 +81,12 @@ async function displayProductsById(id, clicked) {
 		h1.innerHTML = title;
 		p.innerHTML = `$ ${price}`;
 
-		container.append(a);
+		containerProduct.append(a);
 		a.append(img);
 		a.append(pCategory);
 		a.append(h1);
 		a.append(p);
 	});
-
-	// if (lastId == id && clicked == true) {
-	// 	let cards = document.getElementsByClassName("card");
-	// 	// console.log(as);
-	// 	for (item of cards) {
-	// 		item.remove();
-	// 	}
-	// 	lastId == id;
-	// } else if (lastId != id && clicked == true) {
-	// 	let cards = document.getElementsByClassName("card");
-	// 	// console.log(as);
-	// 	for (item of cards) {
-	// 		item.remove();
-	// 	}
-	// 	lastId == id;
-	// }
 }
 
 async function displayCategoryList() {
@@ -116,48 +111,8 @@ async function displayCategoryList() {
 	});
 }
 
-// async function displayProducts() {
-// 	const products = await getProducts();
-// 	products.forEach((product) => {
-// 		console.log(product);
-// 		const {
-// 			id,
-// 			title,
-// 			price,
-// 			description,
-// 			images,
-// 			category: { name },
-// 		} = product;
-// 		// console.log(name);
-// 		const a = createDiv(
-// 			"a",
-// 			"p-5",
-// 			"w-60",
-// 			"border-2",
-// 			"rounded",
-// 			"cursor-pointer"
-// 		);
-// 		const img = createDiv("img", "mb-4");
-// 		const h1 = createDiv("h1", "mb-2");
-// 		const pCategory = createDiv("p");
-// 		const p = createDiv("p", "font-bold");
-
-// 		// a.href = id;
-// 		img.src = "headphone.jpeg";
-// 		h1.innerHTML = title;
-// 		p.innerHTML = `$ ${price}`;
-// 		pCategory.innerHTML = `${name}`;
-// 		container.append(a);
-// 		a.append(img);
-// 		a.append(pCategory);
-// 		a.append(h1);
-// 		a.append(p);
-// 	});
-// }
-
-// displayProducts();
 displayCategoryList();
-displayProductsById(defaultId);
+displayProductsById();
 
 function createDiv(tag, ...classes) {
 	let div = document.createElement(tag);
