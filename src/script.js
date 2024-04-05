@@ -1,10 +1,10 @@
-// Get All Products
+// Get Element
 const container = document.getElementById("container");
 const categorySection = document.getElementById("categorySection");
 
 let defaultId = 1;
-let lastId = defaultId;
 
+// get product
 async function getProducts() {
 	const response = await fetch(
 		"https://api.escuelajs.co/api/v1/products?offset=0&limit=5"
@@ -13,14 +13,15 @@ async function getProducts() {
 	return products;
 }
 
+// get category
 async function getCategory() {
 	const response = await fetch("https://api.escuelajs.co/api/v1/categories");
 	const categories = await response.json();
 	// console.log(categories);
-
 	return categories;
 }
 
+// get category name
 async function getCategoryList() {
 	const categories = await getCategory();
 	categories.map(({ name }) => {
@@ -28,6 +29,7 @@ async function getCategoryList() {
 	});
 }
 
+// get products by category id
 async function getProductsByCategoryId(id) {
 	const response = await fetch(
 		`https://api.escuelajs.co/api/v1/products/?categoryId=${id}`
@@ -37,10 +39,13 @@ async function getProductsByCategoryId(id) {
 	return productsById;
 }
 
+// display product by category id
 async function displayProductsByCategoryId(id, clicked) {
+	// if button clicked clear all child element
 	if (clicked == true) {
 		container.firstChild.remove();
 	}
+
 	let containerProduct = createDiv(
 		"div",
 		"justify-center",
@@ -50,20 +55,18 @@ async function displayProductsByCategoryId(id, clicked) {
 		"flex-wrap"
 	);
 
-	container.append(containerProduct);
 	const products = await getProductsByCategoryId(id);
 
-	// console.log(products);
+	// show all product
 	products.forEach((product) => {
-		// console.log(product);
+		// destructuring array
 		const {
 			title,
 			price,
-			description,
 			images,
 			category: { name },
 		} = product;
-		// console.log(name);
+		// create element
 		const a = createDiv(
 			"a",
 			"card",
@@ -73,18 +76,25 @@ async function displayProductsByCategoryId(id, clicked) {
 			"rounded",
 			"cursor-pointer"
 		);
+
+		// create element
 		const img = createDiv("img", "mb-4");
 		const pCategory = createDiv("p", "text-xs", "mb-2", "font-semibold");
 		const h1 = createDiv("h1", "mb-4");
 		const p = createDiv("p", "font-bold");
 
+		// cleaning url
 		var imageClean = images[0].replace(/["[\]\]]/gi, "");
+
+		// insert value
 		img.src = imageClean;
 		console.log(imageClean);
 		pCategory.innerHTML = `${name}`;
 		h1.innerHTML = title;
 		p.innerHTML = `$ ${price}`;
 
+		// append element
+		container.append(containerProduct);
 		containerProduct.append(a);
 		a.append(img);
 		a.append(pCategory);
@@ -93,6 +103,7 @@ async function displayProductsByCategoryId(id, clicked) {
 	});
 }
 
+// to show category which product array length not zero
 async function sorting(categories) {
 	console.log(categories);
 	let arr = [];
@@ -104,15 +115,18 @@ async function sorting(categories) {
 	}
 	return arr;
 }
+
+// function displayCategoryList
 async function displayCategoryList() {
 	const categories = await getCategory();
 	const categoryList = categories.map(({ id, name }) => {
 		return { id, name };
 	});
 
-	let categoryNotNull = await sorting(categoryList);
-	console.log(categoryNotNull);
-	categoryNotNull.forEach((category) => {
+	// filtering category
+	let categoryProduct = await sorting(categoryList);
+
+	categoryProduct.forEach((category) => {
 		const { id, name } = category;
 		const a = createDiv(
 			"a",
@@ -130,9 +144,7 @@ async function displayCategoryList() {
 	});
 }
 
-displayCategoryList();
-displayProductsByCategoryId(defaultId);
-
+// function to create tag with classes
 function createDiv(tag, ...classes) {
 	let div = document.createElement(tag);
 	if (classes.length != 0) {
@@ -140,3 +152,7 @@ function createDiv(tag, ...classes) {
 	}
 	return div;
 }
+
+// display menu and Product
+displayCategoryList();
+displayProductsByCategoryId(defaultId);
